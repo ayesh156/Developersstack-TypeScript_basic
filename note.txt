@@ -155,3 +155,250 @@ console.log(sum(10,30));
 console.log(sum(10,20,30,40));
 console.log(sum());
 
+//=============== Objects
+
+//------------- Literals
+const student = {
+    name: 'Thathsara',
+    age:32,
+    address:{
+        city:'Kalutara',
+        postal:12500
+    }
+}
+
+console.log(student);
+console.log(student.name);
+console.log(student.address);
+console.log(student.address.city);
+
+//------------- interface base
+
+interface Student{
+    name:string;
+    age:number;
+    address:{
+        city:string;
+        postal:number
+    }
+}
+
+
+const student:Student = {
+    name: 'Thathsara',
+    age:32,
+    address:{
+        city:'Kalutara',
+        postal:12500
+    }
+}
+
+console.log(student);
+console.log(student.name);
+console.log(student.address);
+console.log(student.address.city);
+
+//------------- class base
+
+class Student{
+    name:string;
+    age:number;
+    address:{
+        city:string;
+        postal:number
+    }
+
+    constructor(name:string, age:number, address:{city:string, postal:number}){
+        this.name = name;
+        this.age = age;
+        this.address = address;
+    }
+}
+
+const student = new Student("Eshara",90,{city:"Matara",postal:12500});
+console.log(student);
+
+//=============== Encapsulation
+
+class Dog {
+
+    private name:string;
+    private age:number;
+    constructor(name:string, age:number){
+        this.name=name;
+        this.age=age;
+    }
+
+    public setAge(age:number) {
+        if(age<0){
+            return;
+        }
+        this.age=age;
+    }
+
+}
+
+const d1 = new Dog("Togo",1);
+d1.setAge(10);
+
+//=============== Optional | readonly
+
+interface Animal{
+    name:string;
+    age?:number;
+    readonly isActive:boolean;
+}
+
+const a1:Animal={
+    name:'Dog',
+    isActive:true
+}
+
+const a2:Animal={
+    name:'Dog',
+    age:10,
+    isActive:false
+}
+
+
+a1.isActive = false;
+
+//=============== Interface extends
+/* interface => extends => interface
+class => implements => interface
+class => extends => class */
+
+interface Person{
+    name:string;
+    age:number;
+    canEnglish:boolean
+}
+
+interface Thisara extends Person{
+    canTamil:boolean;
+}
+
+interface Eshara extends Person{
+
+}
+
+const thisara:Thisara = {name:"Thisara",age:23,canTamil:true,canEnglish:true};
+const eshara:Eshara = {name:"Eshara",age:22,canEnglish:true};
+
+//=============== Inheritance
+
+class Animal{
+    name:string;
+    age:number;
+
+    constructor(name:string, age:number){
+        this.name = name;
+        this.age = age;
+    }
+
+    public sound():void{
+        console.log(`${this.name} sound`);
+    }
+}
+
+class Dog extends Animal{
+    breed:string;
+    constructor(name:string, age:number, breed:string){
+        super(name,age);
+        this.breed = breed;
+    }
+}
+
+let animal = new Animal('Animal',10);
+let dog = new Dog('Animal',10,'Dog breed');
+
+console.log(animal);
+console.log(dog);
+animal.sound();
+dog.sound();
+
+//=============== Abstract class
+
+abstract class Phone1{ // eshan
+    private displaySize:number;
+    constructor(displaySize:number){
+        this.displaySize=displaySize;
+    }
+
+    call():void{
+        console.log('calling...!');
+    }
+
+    message():void{
+        console.log('messaging...!');
+    }
+
+    abstract fileTransfer():void;
+} // Enjeck
+
+abstract class PhoneOshada extends Phone1{ // oshada
+    dance():void{
+        console.log('dancing...!');
+    }
+}
+
+abstract class hasanthaPhone extends PhoneOshada{
+    fileTransfer():void{
+        console.log('hureeeee...!');
+    }
+}
+
+//=============== Generics
+
+function getData<T>(value:T):T{
+    return value;
+}
+
+let numberValue = getData<number>(10);
+let stringValue = getData<string>("nimal");
+
+console.log(numberValue);
+console.log(stringValue);
+
+//------------- 
+
+interface Shape<T>{
+    type:T;
+}
+
+let s1:Shape<string> = {type:'type string'}
+let s2:Shape<number> = {type:150}
+let s3:Shape<boolean> = {type:true}
+
+//=============== Generics Constraints
+
+interface elementLength{
+    length:number
+}
+
+function showLength<T extends elementLength>(value:T):void{
+    console.log(value.length);
+}
+
+showLength([10,20,30]);
+showLength('Muthuu');
+// showLength(false);
+
+//=============== Error Handling
+
+function dev(num1:number,num2:number){
+    if(num2==0){
+        throw new Error('Wrong Input!');
+    }
+    return num1/num2;
+}
+
+try{
+    let answer = dev(10,0);
+console.log(answer);
+}catch(error){
+    console.error(error);
+}finally{
+    console.log('finally');
+}
+

@@ -1,12 +1,17 @@
-//=============== Rest Parameters
-function sum(...values:number[]):number{
-    let ttl = 0;
-    for(const temp of values){
-        ttl+=temp;
+//=============== Error Handling
+
+function dev(num1:number,num2:number){
+    if(num2==0){
+        throw new Error('Wrong Input!');
     }
-    return ttl;
+    return num1/num2;
 }
 
-console.log(sum(10,30));
-console.log(sum(10,20,30,40));
-console.log(sum());
+try{
+    let answer = dev(10,0);
+console.log(answer);
+}catch(error){
+    console.error(error);
+}finally{
+    console.log('finally');
+}
