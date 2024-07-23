@@ -402,3 +402,144 @@ console.log(answer);
     console.log('finally');
 }
 
+//=============== Type guards
+
+function setData(value:string | number):void{
+    console.log(typeof value);
+}
+    
+setData('String Data');
+setData(150);
+
+//------------- type of
+
+function setData(value:string | number):void{
+    if(typeof value === 'number'){
+        console.log('This is a number');
+    }else{
+        console.log('This is a string');
+    }
+    
+}
+    
+setData('String Data');
+setData(150);
+
+//-------
+
+const studentName = "Eshara Ranaweera";
+type NameData = typeof studentName;
+
+const nimalName:string = studentName.toUpperCase();
+
+//------------- instance of
+
+class Dog{
+    sound():void{
+        console.log('Dog sound');
+    }
+}
+
+class Cat{
+    walk():void{
+        console.log('Cat sound');
+    }
+}
+
+function executor(value:Dog | Cat){
+    if(value instanceof Dog){
+        value.sound();
+    }else{
+        value.walk();
+    }
+}
+
+executor(new Dog());
+executor(new Cat());
+
+//------------- in
+
+class Dog{
+    name:string;
+    constructor(name:string){this.name = name;}
+}
+
+class Cat{
+    age:number;
+    constructor(age:number){this.age = age;}
+}
+
+
+function collectData(value: Dog | Cat){
+    if('name' in value){
+        console.log(value.name);
+    }else{
+        console.log(value.age);
+    }
+}
+
+collectData(new Dog('Thisara'));
+
+//=============== assertions
+
+interface Vehicle{
+    type:string
+}
+
+interface Car extends Vehicle{
+    drive():void;
+}
+
+interface Van extends Vehicle{
+    start():void;
+}
+
+interface Bus extends Vehicle{
+    stop():void;
+}
+
+function execute(vehicle: Vehicle):void{
+    // (vehicle as Van)
+    (vehicle as Bus)
+}
+
+//=============== union types
+
+interface Animal{name:string}
+
+interface Dog extends Animal{
+    name:'myDog';
+    height: number;
+}
+
+interface Cat extends Animal{
+    name:'myCat';
+    height: number;
+}
+
+type MyPet = Dog | Cat;
+
+function trigger(pet: MyPet){
+    if(pet.name == 'myDog'){
+        console.log('Dog');
+    }else{
+        console.log('Cat');
+    }
+}
+
+trigger({name:'myDog',height:20});
+
+//=============== key of
+
+interface Student{
+    name:string;
+    age:number;
+    isActive:boolean
+}
+
+type StudentKeys = keyof Student; // "name" "age" "isActive"
+const studentName:StudentKeys = "name";
+const studentAge:StudentKeys = "age";
+const studentAvailability:StudentKeys = "isActive";
+
+
